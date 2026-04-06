@@ -556,8 +556,8 @@ body {
 }
 .cake-image{
     width: auto;
-    max-width: 220px;
-    max-height: 220px;
+    max-width: 150px;
+    max-height: 150px;
     border-radius: 20px;
     box-shadow: 0 18px 42px rgba(255, 164, 194, 0.25);
 }
