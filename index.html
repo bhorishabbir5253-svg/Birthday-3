@@ -20,13 +20,6 @@
 </head>
 
 <body>
-    <div id="loading">
-        <div class="spinner">
-            <div class="heart">💖</div>
-            <div class="heart">💖</div>
-            <div class="heart">💖</div>
-        </div>
-    </div>
     <div id="wrapper">
         <div class="flag__birthday">
             <img src="./images/1.png" alt="" width="350" class="flag__left">
@@ -169,11 +162,6 @@ Once again, Happy Birthday Zoya 🎂🎈🎊✨💖
                         <div class="imageCute2">
                             <img src="cute2.png" alt="">
                         </div>
-                        <div class="carousel">
-                            <img src="./images/image.png" alt="Cake">
-                            <img src="./images/unnamed.png.jpeg" alt="Photo">
-                            <img src="./images/hat.png" alt="Hat">
-                        </div>
                     </div>
                 </div>
             </div>
@@ -218,38 +206,8 @@ document.addEventListener("click", function () {
     }
 });
 window.addEventListener('load', () => {
-    setTimeout(() => {
-        document.getElementById('loading').style.display = 'none';
-    }, 2000); // Show for 2 seconds
     confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
 });
-// Interactive elements
-document.querySelectorAll('.balloon_one, .balloon_two, .floating-heart').forEach(el => {
-    el.addEventListener('click', () => {
-        confetti({ particleCount: 50, spread: 60, origin: { x: Math.random(), y: Math.random() } });
-    });
-});
-// Color variations on scroll
-window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY;
-    const hue = (scrollY / 10) % 360;
-    document.body.style.background = `linear-gradient(135deg, hsl(${hue}, 70%, 90%), hsl(${hue + 60}, 70%, 85%), hsl(${hue + 120}, 70%, 80%))`;
-});
-// Sound effects
-function playPopSound() {
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    osc.frequency.value = 800;
-    osc.type = 'square';
-    osc.connect(gain);
-    gain.connect(audioCtx.destination);
-    gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
-    osc.start();
-    osc.stop(audioCtx.currentTime + 0.1);
-}
-document.getElementById('btn__letter').addEventListener('click', playPopSound);
 </script>
 </body>
 <script>
@@ -264,6 +222,59 @@ document.getElementById('btn__letter').addEventListener('click', playPopSound);
     let currentIndexTitle = 0;
     let date__of__birth = document.querySelector(".date__of__birth span");
     let text__letter = document.querySelector(".text__letter p");
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const happyBirthdayMelody = [
+        { freq: 392, time: 0.0 }, // G4
+        { freq: 392, time: 0.44 },
+        { freq: 440, time: 0.88 }, // A4
+        { freq: 392, time: 1.32 },
+        { freq: 523.25, time: 1.76 }, // C5
+        { freq: 494, time: 2.20 }, // B4
+        { freq: 392, time: 2.64 },
+        { freq: 392, time: 3.08 },
+        { freq: 440, time: 3.52 },
+        { freq: 392, time: 3.96 },
+        { freq: 587.33, time: 4.40 }, // D5
+        { freq: 523.25, time: 4.84 },
+        { freq: 392, time: 5.28 },
+        { freq: 392, time: 5.72 },
+        { freq: 784, time: 6.16 }, // G5
+        { freq: 659.25, time: 6.60 }, // E5
+        { freq: 523.25, time: 7.04 },
+        { freq: 494, time: 7.48 },
+        { freq: 440, time: 7.92 },
+        { freq: 698.46, time: 8.36 }, // F#5
+        { freq: 698.46, time: 8.80 },
+        { freq: 659.25, time: 9.24 },
+        { freq: 587.33, time: 9.68 },
+        { freq: 523.25, time: 10.12 },
+        { freq: 659.25, time: 10.56 },
+        { freq: 587.33, time: 11.00 },
+        { freq: 523.25, time: 11.44 },
+        { freq: 494, time: 11.88 }
+    ];
+
+    function playHappyBirthday() {
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+        happyBirthdayMelody.forEach(({ freq, time }) => {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.value = freq;
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            gain.gain.setValueAtTime(0, audioCtx.currentTime + time);
+            gain.gain.linearRampToValueAtTime(0.22, audioCtx.currentTime + time + 0.01);
+            gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + time + 0.36);
+            osc.start(audioCtx.currentTime + time);
+            osc.stop(audioCtx.currentTime + time + 0.36);
+        });
+        setTimeout(() => {
+            audioCtx.close();
+        }, 30000);
+    }
 
     setTimeout(function () {
         timeDatetxt = setInterval(function () {
@@ -311,10 +322,7 @@ document.getElementById('btn__letter').addEventListener('click', playPopSound);
 
     close.addEventListener('click', function () {
         boxmail.classList.remove('active')
-        const music = document.getElementById("birthdayMusic");
-        if (music.paused) {
-            music.play();
-        }
+        playHappyBirthday()
         confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } });
         // Show the animated letter after closing the card
         $(".box__letter").slideDown()
