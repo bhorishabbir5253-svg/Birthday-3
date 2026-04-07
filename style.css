@@ -459,6 +459,7 @@ body {
     max-width: 150px;
     max-height: 150px;
     border-radius: 20px;
+    margin-top: 18px;
 }
 .cake-caption{
     font-family: 'Dancing Script', cursive;
