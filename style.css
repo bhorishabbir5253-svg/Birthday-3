@@ -459,7 +459,6 @@ body {
     max-width: 150px;
     max-height: 150px;
     border-radius: 20px;
-    box-shadow: 0 18px 42px rgba(255, 164, 194, 0.25), 0 0 20px rgba(255, 215, 0, 0.5);
 }
 .cake-caption{
     font-family: 'Dancing Script', cursive;
