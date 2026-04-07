@@ -1039,3 +1039,36 @@ body {
         flex-direction: column;
     }
 }
+
+@media (max-width: 768px) {
+    .boxMail .boxMail-container {
+        width: min(90vw, 750px);
+        height: min(90vh, 500px);
+        flex-direction: column;
+        position: relative;
+        transform: translateY(0) scale(1);
+    }
+    .boxMail .boxMail-container .card1,
+    .boxMail .boxMail-container .card2 {
+        position: relative;
+        width: 100%;
+        height: auto;
+        transform: none;
+        top: 0;
+        left: 0;
+    }
+    .boxMail .boxMail-container .card2 {
+        margin-top: 12px;
+    }
+    .boxMail .boxMail-container .card1 h3 {
+        font-size: 28px;
+    }
+    .boxMail .boxMail-container .card2 .card2-content {
+        height: auto;
+        padding: 18px;
+    }
+    .boxMail .boxMail-container .card2 .card2-content .imageCute2 {
+        top: 10px;
+        left: 10px;
+    }
+}
