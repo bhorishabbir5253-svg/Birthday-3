@@ -16,7 +16,6 @@
         rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 
 <body>
@@ -102,38 +101,6 @@
                 </div>
             </div>
         </div>
-        <div class="decorate_star star1" style="--t: 15s;"></div>
-        <div class="decorate_star star2" style="--t: 15.2s;"></div>
-        <div class="decorate_star star3" style="--t: 15.4s;"></div>
-        <div class="decorate_star star4" style="--t: 15.6s;"></div>
-        <div class="decorate_star star5" style="--t: 15.8s;"></div>
-        <div class="decorate_flower--one" style="--t: 15s;">
-            <img width="20" src="./images/decorate_flower.png" alt="">
-        </div>
-        <div class="decorate_flower--two" style="--t: 15.3s;">
-            <img width="20" src="./images/decorate_flower.png" alt="">
-        </div>
-        <div class="decorate_flower--three" style="--t: 15.6s;">
-            <img width="20" src="./images/decorate_flower.png" alt="">
-        </div>
-        <div class="decorate_bottom">
-            <img src="./images/decorate.png" alt="" width="100">
-        </div>
-        <div class="bubble bubble1"></div>
-        <div class="bubble bubble2"></div>
-        <div class="bubble bubble3"></div>
-        <div class="bubble bubble4"></div>
-        <div class="bubble bubble5"></div>
-        <div class="floating-heart heart1">💖</div>
-        <div class="floating-heart heart2">💖</div>
-        <div class="floating-heart heart3">💖</div>
-        <div class="floating-star star1">⭐</div>
-        <div class="floating-star star2">⭐</div>
-        <div class="smiley__icon">
-            <img src="./images/smiley_icon.png" alt="" width="100">
-        </div>
-
-
         <div class="boxMail">
             <i class="fa-solid fa-xmark"></i>
             <div class="boxMail-container">
@@ -195,7 +162,7 @@ Once again, Happy Birthday Zoya 🎂🎈🎊✨💖
         </div>
     </div>
 
-<audio id="birthdayMusic" loop controls>
+<audio id="birthdayMusic" loop>
     <source src="birthday.mp3" type="audio/mpeg">
 </audio>
 <script>
@@ -204,9 +171,6 @@ document.addEventListener("click", function () {
     if (music.paused) {
         music.play();
     }
-});
-window.addEventListener('load', () => {
-    confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
 });
 </script>
 </body>
@@ -222,59 +186,6 @@ window.addEventListener('load', () => {
     let currentIndexTitle = 0;
     let date__of__birth = document.querySelector(".date__of__birth span");
     let text__letter = document.querySelector(".text__letter p");
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const happyBirthdayMelody = [
-        { freq: 392, time: 0.0 }, // G4
-        { freq: 392, time: 0.44 },
-        { freq: 440, time: 0.88 }, // A4
-        { freq: 392, time: 1.32 },
-        { freq: 523.25, time: 1.76 }, // C5
-        { freq: 494, time: 2.20 }, // B4
-        { freq: 392, time: 2.64 },
-        { freq: 392, time: 3.08 },
-        { freq: 440, time: 3.52 },
-        { freq: 392, time: 3.96 },
-        { freq: 587.33, time: 4.40 }, // D5
-        { freq: 523.25, time: 4.84 },
-        { freq: 392, time: 5.28 },
-        { freq: 392, time: 5.72 },
-        { freq: 784, time: 6.16 }, // G5
-        { freq: 659.25, time: 6.60 }, // E5
-        { freq: 523.25, time: 7.04 },
-        { freq: 494, time: 7.48 },
-        { freq: 440, time: 7.92 },
-        { freq: 698.46, time: 8.36 }, // F#5
-        { freq: 698.46, time: 8.80 },
-        { freq: 659.25, time: 9.24 },
-        { freq: 587.33, time: 9.68 },
-        { freq: 523.25, time: 10.12 },
-        { freq: 659.25, time: 10.56 },
-        { freq: 587.33, time: 11.00 },
-        { freq: 523.25, time: 11.44 },
-        { freq: 494, time: 11.88 }
-    ];
-
-    function playHappyBirthday() {
-        if (audioCtx.state === 'suspended') {
-            audioCtx.resume();
-        }
-        happyBirthdayMelody.forEach(({ freq, time }) => {
-            const osc = audioCtx.createOscillator();
-            const gain = audioCtx.createGain();
-            osc.type = 'sine';
-            osc.frequency.value = freq;
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-            gain.gain.setValueAtTime(0, audioCtx.currentTime + time);
-            gain.gain.linearRampToValueAtTime(0.22, audioCtx.currentTime + time + 0.01);
-            gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + time + 0.36);
-            osc.start(audioCtx.currentTime + time);
-            osc.stop(audioCtx.currentTime + time + 0.36);
-        });
-        setTimeout(() => {
-            audioCtx.close();
-        }, 30000);
-    }
 
     setTimeout(function () {
         timeDatetxt = setInterval(function () {
@@ -322,8 +233,6 @@ window.addEventListener('load', () => {
 
     close.addEventListener('click', function () {
         boxmail.classList.remove('active')
-        playHappyBirthday()
-        confetti({ particleCount: 150, spread: 90, origin: { y: 0.6 } });
         // Show the animated letter after closing the card
         $(".box__letter").slideDown()
         setTimeout(function () {
